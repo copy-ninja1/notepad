@@ -1,9 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+// import React from "react";
+import logo from "../logo.svg";
+import DefualtLayout from "../layout/defualtLayout";
+export default function LandingPage() {
   return (
-    <div className="App">
+    <DefualtLayout>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -18,8 +18,8 @@ function App() {
           Learn React
         </a>
       </header>
-    </div>
+    </DefualtLayout>
   );
 }
 
-export default App;
+// LandingPage.DefualtLayout = DefualtLayout;
