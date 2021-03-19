@@ -1,23 +1,29 @@
 // import React from "react";
-import logo from "../logo.svg";
 import DefualtLayout from "../layout/defualtLayout";
+import { css } from "@emotion/css";
+import Card from "../components/Card";
+
 export default function LandingPage() {
   return (
     <DefualtLayout>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div
+        className={css`
+          padding: 0 12px;
+        `}
+      >
+        {[...Array(10).keys()].map((i, val) => {
+          return (
+            <div
+              className={css`
+                margin-bottom: 10px;
+              `}
+              key={i}
+            >
+              <Card />
+            </div>
+          );
+        })}
+      </div>
     </DefualtLayout>
   );
 }
