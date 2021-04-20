@@ -34,7 +34,7 @@ export function Note() {
   useEffect(() => {
     // Update the document title using the browser API
     note();
-  }, []);
+  });
   return (
     <div
       className={css`
