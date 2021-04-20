@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-
 let CardBox = styled.div({
   //   border: "1px solid red",
   backgroundColor: "rgb(25, 39, 52)",
@@ -18,20 +17,25 @@ let CardTitle = styled.div({
 let CardBody = styled.div({
   fontSize: "15px",
   fontWeight: "400",
-  padding: "10px 0px",
+  padding: "10px 0px 0px 0px",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  display: "-webkit-box",
+  "-webkitLineClamp": "2",
+  "-webkitBoxOrient": "vertical",
 });
 let CardDate = styled.div({
   color: "rgb(136, 153, 166)",
-  "font-size": "13px",
+  fontSize: "13px",
+  paddingTop: 10,
 });
 
-export default function Card() {
+export default function Card(props) {
+  let { title, message } = props.note;
   return (
     <CardBox className="">
-      <CardTitle>title</CardTitle>
-      <CardBody>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse
-      </CardBody>
+      <CardTitle>{title}</CardTitle>
+      <CardBody>{message} </CardBody>
       <CardDate>19th march, 2021</CardDate>
     </CardBox>
   );

@@ -4,6 +4,7 @@ import DefualtLayout from "../layout/defualtLayout";
 
 import HomePage from "../pages/index";
 import NotePage from "../pages/[note]";
+import NewNotePage from "../pages/writer";
 
 const Routes = () => {
   return (
@@ -14,8 +15,11 @@ const Routes = () => {
             <HomePage />
           </DefualtLayout>
         </Route>
-      </Switch>
-      <Switch>
+        <Route exact path="/note/new">
+          <DefualtLayout>
+            <NewNotePage />
+          </DefualtLayout>
+        </Route>
         <Route exact path="/note/:id">
           <DefualtLayout>
             <NotePage />
