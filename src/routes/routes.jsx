@@ -25,6 +25,11 @@ const Routes = () => {
             <NotePage />
           </DefualtLayout>
         </Route>
+        <Route exact path="/note/:id/edit">
+          <DefualtLayout>
+            <NewNotePage />
+          </DefualtLayout>
+        </Route>
       </Switch>
     </Router>
   );

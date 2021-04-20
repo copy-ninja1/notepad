@@ -21,8 +21,7 @@ let CardBody = styled.div({
   overflow: "hidden",
   textOverflow: "ellipsis",
   display: "-webkit-box",
-  "-webkitLineClamp": "2",
-  "-webkitBoxOrient": "vertical",
+  WebkitBoxOrient: "vertical",
 });
 let CardDate = styled.div({
   color: "rgb(136, 153, 166)",

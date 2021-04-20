@@ -2,20 +2,11 @@
 import { css } from "@emotion/css";
 import Card from "../components/Card";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import noteState from "../store/note/state";
 import noteSelector from "../store/note/selector";
 
 export default function LandingPage() {
-  // const [notes, setNotes] = useState([]);
   const notes = useRecoilValue(noteSelector);
-  // console.log(notes);
-
-  // useEffect(() => {
-  //   // Update the document title using the browser API
-  //   setNotes(genaratefakeNotes());
-  // }, []);
 
   return (
     <div
@@ -25,7 +16,7 @@ export default function LandingPage() {
     >
       {notes.map((val, index) => {
         return (
-          <Link key={index} to={`/note/${index}`}>
+          <Link key={index} to={`/note/${val.id}`}>
             <div
               className={css`
                 margin-bottom: 10px;

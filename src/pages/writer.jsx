@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/css";
-import { useState, useEffect } from "react";
-import { useSetRecoilState } from "recoil";
-import { __notes, products } from "../store/note/state";
-import noteSelector from "../store/note/selector";
+import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { __notes } from "../store/note/state";
+import { useParams } from "react-router-dom";
 
 // import { Component } from "react";
 let TextBoard = styled.div((props) => ({
@@ -52,7 +52,8 @@ const Button = styled.button({
 export default function NewNote() {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
-  const setNewNote = useSetRecoilState(__notes);
+  const [notes, setNewNote] = useRecoilState(__notes);
+  const { id } = useParams();
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -66,9 +67,48 @@ export default function NewNote() {
     if (title || message) {
       setNewNote((oldList) => {
         // debugger;
-        return [...oldList, { title: title, message: message }];
+        return [...oldList, { id: makeid(5), title: title, message: message }];
       });
     }
+  };
+  const editNote = () => {
+    if (id && (title || message)) {
+      var noteIndex = notes.findIndex((val) => val.id === id);
+
+      // let n = notes;
+      var replacedNote = notes;
+
+      var editedNote =
+        replacedNote.length > 0
+          ? notes.find((val, indx) => {
+              return val.id === id;
+            })
+          : null;
+
+      var newReplacedNote = replacedNote.filter((val, idex) => {
+        return idex !== noteIndex;
+      });
+      newReplacedNote.splice(noteIndex, 0, {
+        id: editedNote.id,
+        title: title,
+        message: message,
+      });
+
+      setNewNote(newReplacedNote);
+    }
+  };
+
+  const makeid = (length) => {
+    var result = [];
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result.push(
+        characters.charAt(Math.floor(Math.random() * charactersLength))
+      );
+    }
+    return result.join("");
   };
 
   return (
@@ -93,7 +133,7 @@ export default function NewNote() {
           onChange={handleMessageChange}
         />
       </TextBoard>
-      <Button onClick={saveNote}>Save</Button>
+      <Button onClick={!id ? saveNote : editNote}>Save</Button>
     </div>
   );
 }

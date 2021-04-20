@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/css";
 import "@mdi/font/css/materialdesignicons.min.css";
 import { Link } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 let AppHeader = styled.div({
   position: "fixed",
@@ -14,8 +15,18 @@ let AppHeader = styled.div({
   backgroundColor: "rgb(21, 32, 43)",
 });
 
+function _route(Component) {
+  return function WrappedComponent(props) {
+    const params = useParams();
+    const path = useLocation();
+    return <Component {...props} id={params.id} path={path.pathname} />;
+  };
+}
 class Layout extends Component {
   render() {
+    console.log("this.props.withId : ", this.props.params);
+    let { path, id } = this.props;
+    // console.log("path : ", path, path != "/note/new");
     return (
       <div>
         <AppHeader>
@@ -24,17 +35,32 @@ class Layout extends Component {
               padding: 10px;
             `}
           >
-            Notepad{" "}
-            <Link to="/note/new">
-              <span
-                className={css`
-                  float: right;
-                  fontsize: 20;
-                `}
-              >
-                <i className="mdi mdi-plus"></i>
-              </span>
-            </Link>
+            <Link to="/">Notepad</Link>
+            {path !== "/note/new" && !id ? (
+              <Link to="/note/new">
+                <span
+                  className={css`
+                    float: right;
+                    fontsize: 20;
+                  `}
+                >
+                  <i className="mdi mdi-plus"></i>
+                </span>
+              </Link>
+            ) : id && path !== "/note/new" ? (
+              <Link to={`/note/${id}/edit`}>
+                <span
+                  className={css`
+                    float: right;
+                    fontsize: 20;
+                  `}
+                >
+                  <i className="mdi mdi-pen"></i>
+                </span>
+              </Link>
+            ) : (
+              <></>
+            )}
           </div>
         </AppHeader>
         <div
@@ -50,4 +76,4 @@ class Layout extends Component {
   }
 }
 
-export default Layout;
+export default _route(Layout);
