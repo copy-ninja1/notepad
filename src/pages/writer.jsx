@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/css";
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { useRecoilState } from "recoil";
 import { __notes } from "../store/note/state";
 import { useParams } from "react-router-dom";
+import { useAlert } from "react-alert";
 
 // import { Component } from "react";
 let TextBoard = styled.div((props) => ({
@@ -54,6 +55,7 @@ export default function NewNote() {
   const [message, setMessage] = useState("");
   const [notes, setNewNote] = useRecoilState(__notes);
   const { id } = useParams();
+  const alert = useAlert();
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -68,6 +70,15 @@ export default function NewNote() {
       setNewNote((oldList) => {
         // debugger;
         return [...oldList, { id: makeid(5), title: title, message: message }];
+      });
+      setMessage("");
+      setTitle("");
+      alert.show("Note saved sucessfully", {
+        type: "success",
+      });
+    } else {
+      alert.show("Sorry! can not save empty note", {
+        type: "error",
       });
     }
   };
@@ -95,6 +106,10 @@ export default function NewNote() {
       });
 
       setNewNote(newReplacedNote);
+    } else {
+      alert.show("Sorry! an error occured", {
+        type: "error",
+      });
     }
   };
 
@@ -112,28 +127,32 @@ export default function NewNote() {
   };
 
   return (
-    <div
-      className={css`
-        padding: 10px;
-      `}
-    >
-      <TextBoard>
-        <Input
-          type="text"
-          placeholder="Title"
-          name="title"
-          onChange={handleTitleChange}
-        />
-      </TextBoard>
-      <TextBoard body>
-        <TextArea
-          body
-          type="text"
-          name="title"
-          onChange={handleMessageChange}
-        />
-      </TextBoard>
-      <Button onClick={!id ? saveNote : editNote}>Save</Button>
-    </div>
+    <Fragment>
+      <div
+        className={css`
+          padding: 10px;
+        `}
+      >
+        <TextBoard>
+          <Input
+            value={title}
+            type="text"
+            placeholder="Title"
+            name="title"
+            onChange={handleTitleChange}
+          />
+        </TextBoard>
+        <TextBoard body>
+          <TextArea
+            value={message}
+            body
+            type="text"
+            name="title"
+            onChange={handleMessageChange}
+          />
+        </TextBoard>
+        <Button onClick={!id ? saveNote : editNote}>Save</Button>
+      </div>
+    </Fragment>
   );
 }
