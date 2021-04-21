@@ -69,7 +69,7 @@ export default function NewNote() {
     if (title || message) {
       setNewNote((oldList) => {
         // debugger;
-        return [...oldList, { id: makeid(5), title: title, message: message }];
+        return [{ id: makeid(5), title: title, message: message }, ...oldList];
       });
       setMessage("");
       setTitle("");
