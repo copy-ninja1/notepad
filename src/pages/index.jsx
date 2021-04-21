@@ -12,21 +12,34 @@ export default function LandingPage() {
     <div
       className={css`
         padding: 0 12px;
+        height: 100%;
       `}
     >
-      {notes.map((val, index) => {
-        return (
-          <Link key={index} to={`/note/${val.id}`}>
-            <div
-              className={css`
-                margin-bottom: 10px;
-              `}
-            >
-              <Card note={val} />
-            </div>
-          </Link>
-        );
-      })}
+      {notes.length > 0 ? (
+        <>
+          {notes.map((val, index) => {
+            return (
+              <Link key={index} to={`/note/${val.id}`}>
+                <div
+                  className={css`
+                    margin-bottom: 10px;
+                  `}
+                >
+                  <Card note={val} />
+                </div>
+              </Link>
+            );
+          })}
+        </>
+      ) : (
+        <p
+          className={css`
+            color: #f3f5f7;
+          `}
+        >
+          No note, create one
+        </p>
+      )}
     </div>
   );
 }

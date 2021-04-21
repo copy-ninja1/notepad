@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/css";
 
-import { useState, useEffect,Fragment } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { useRecoilState } from "recoil";
 import { __notes } from "../store/note/state";
 import { useParams } from "react-router-dom";
@@ -57,8 +57,6 @@ export default function NewNote() {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [notes, setNewNote] = useRecoilState(__notes);
-
-  const { id } = useParams();
   const alert = useAlert();
 
   const handleTitleChange = (e) => {
@@ -116,16 +114,6 @@ export default function NewNote() {
       });
     }
   };
-  function openedForEditing() {
-    if (id && notes.length > 0) {
-      let foundNote = notes.find((val) => {
-        return val.id === id;
-      });
-      setTitle(foundNote.title);
-      setMessage(foundNote.message);
-      console.log("foundNote : ", title);
-    }
-  }
 
   const makeid = (length) => {
     var result = [];
@@ -139,13 +127,22 @@ export default function NewNote() {
     }
     return result.join("");
   };
-
+  function openedForEditing() {
+    if (id && notes.length > 0) {
+      let foundNote = notes.find((val) => {
+        return val.id === id;
+      });
+      setTitle(foundNote.title);
+      setMessage(foundNote.message);
+      console.log("foundNote : ", title);
+    }
+  }
   useEffect(() => {
     openedForEditing();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-
     <Fragment>
       <div
         className={css`
@@ -156,6 +153,7 @@ export default function NewNote() {
           <Input
             value={title}
             type="text"
+            autocomplete="off"
             placeholder="Title"
             name="title"
             onChange={handleTitleChange}
@@ -165,6 +163,7 @@ export default function NewNote() {
           <TextArea
             value={message}
             body
+            autocomplete="off"
             type="text"
             name="title"
             onChange={handleMessageChange}

@@ -24,7 +24,6 @@ function _route(Component) {
 }
 class Layout extends Component {
   render() {
-    console.log("this.props.withId : ", this.props.params);
     let { path, id } = this.props;
     // console.log("path : ", path, path != "/note/new");
     return (
@@ -35,8 +34,23 @@ class Layout extends Component {
               padding: 10px;
             `}
           >
-            <Link to="/">Notepad</Link>
+            <Link to="/">
+              {path !== "/note/new" && !id ? (
+                // plaus icon
+                <> NotePad</>
+              ) : id && path !== "/note/new" && path.includes("edit") ? (
+                // pen icon
+                <>Edit Note</>
+              ) : path === "/note/new" && !id ? (
+                <> New Note</>
+              ) : (
+                <> NotePad</>
+              )}
+            </Link>
+
+            {/*  */}
             {path !== "/note/new" && !id ? (
+              // plaus icon
               <Link to="/note/new">
                 <span
                   className={css`
@@ -47,7 +61,8 @@ class Layout extends Component {
                   <i className="mdi mdi-plus"></i>
                 </span>
               </Link>
-            ) : id && path !== "/note/new" ? (
+            ) : id && path !== "/note/new" && !path.includes("edit") ? (
+              // pen icon
               <Link to={`/note/${id}/edit`}>
                 <span
                   className={css`
