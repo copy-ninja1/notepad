@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/css";
-import { useState, Fragment } from "react";
+
+import { useState, useEffect,Fragment } from "react";
 import { useRecoilState } from "recoil";
 import { __notes } from "../store/note/state";
 import { useParams } from "react-router-dom";
@@ -29,7 +30,7 @@ const Input = styled.input((props) => ({
     border: "1px dashed #364d63",
   },
 }));
-const TextArea = styled.textarea((props) => ({
+const TextArea = styled.textarea({
   minHeight: "calc(100vh / 2)",
   backgroundColor: "inherit",
   borderRadius: "inherit",
@@ -40,7 +41,7 @@ const TextArea = styled.textarea((props) => ({
   "&:focus": {
     border: "1px dashed #364d63",
   },
-}));
+});
 const Button = styled.button({
   padding: 10,
   color: "white",
@@ -51,9 +52,12 @@ const Button = styled.button({
   margin: 10,
 });
 export default function NewNote() {
+  const { id } = useParams();
+
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [notes, setNewNote] = useRecoilState(__notes);
+
   const { id } = useParams();
   const alert = useAlert();
 
@@ -91,7 +95,7 @@ export default function NewNote() {
 
       var editedNote =
         replacedNote.length > 0
-          ? notes.find((val, indx) => {
+          ? notes.find((val) => {
               return val.id === id;
             })
           : null;
@@ -112,6 +116,16 @@ export default function NewNote() {
       });
     }
   };
+  function openedForEditing() {
+    if (id && notes.length > 0) {
+      let foundNote = notes.find((val) => {
+        return val.id === id;
+      });
+      setTitle(foundNote.title);
+      setMessage(foundNote.message);
+      console.log("foundNote : ", title);
+    }
+  }
 
   const makeid = (length) => {
     var result = [];
@@ -126,7 +140,12 @@ export default function NewNote() {
     return result.join("");
   };
 
+  useEffect(() => {
+    openedForEditing();
+  }, []);
+
   return (
+
     <Fragment>
       <div
         className={css`

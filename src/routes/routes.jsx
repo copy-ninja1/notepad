@@ -15,6 +15,11 @@ const Routes = () => {
             <HomePage />
           </DefualtLayout>
         </Route>
+        <Route exact path="/note">
+          <DefualtLayout>
+            <HomePage />
+          </DefualtLayout>
+        </Route>
         <Route exact path="/note/new">
           <DefualtLayout>
             <NewNotePage />

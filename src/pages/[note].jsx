@@ -2,10 +2,10 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/css";
 import { __notes } from "../store/note/state";
 import { useState, useEffect } from "react";
-
 import { useRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
 
+// styles
 let TextBoard = styled.div((props) => ({
   backgroundColor: "rgb(25, 39, 52)",
   padding: 10,
@@ -22,18 +22,19 @@ export function Note() {
   const [currentNote, setCurrentNote] = useState({});
 
   const [notes] = useRecoilState(__notes);
-  const note = () => {
+
+  const findCurrentNote = () => {
     let currentNote =
       notes.length > 0
         ? notes.find((val, indx) => {
             return val.id === id;
           })
         : null;
+    // set current note
     setCurrentNote(currentNote);
   };
   useEffect(() => {
-    // Update the document title using the browser API
-    note();
+    findCurrentNote();
   });
   return (
     <div
