@@ -5,12 +5,23 @@ export const getAllNotes = selector({
   key: "_newNote",
   get: ({ get }) => {
     const response = get(__notes);
-    if (response.error) {
-      throw response.error;
-    }
-    console.log("response: ", response);
     return response;
   },
 });
+// export const getNoteByID = selector({
+//   key: "noteId",
+//   get: ({ get }) => {
+//     const allNotes = get(__notes);
+
+//     if (allNotes) {
+//       const note = allNotes.find((val, index) => {
+//         return val.id === id;
+//       });
+//       console.log("note>>", note);
+
+//       return note;
+//     }
+//   },
+// });
 
 export default getAllNotes;
