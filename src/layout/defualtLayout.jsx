@@ -85,9 +85,11 @@ class Layout extends Component {
       <div>
         <AppHeader>
           <div
-            className={css`
-              padding: 10px;
-            `}
+            className={
+              css`
+                padding: 10px;
+              ` + " wrapper"
+            }
           >
             <BackButton path={path} goBack={goBack}></BackButton>
             <AppTitle path={path} id={id}></AppTitle>
@@ -122,9 +124,11 @@ class Layout extends Component {
           </div>
         </AppHeader>
         <div
-          className={css`
-            padding-top: 60px;
-          `}
+          className={
+            css`
+              padding-top: 60px;
+            ` + " wrapper"
+          }
         >
           {this.props.children}
         </div>
