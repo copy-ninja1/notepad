@@ -38,12 +38,13 @@ export default function LandingPage() {
                   >
                     <CardSection note={val}></CardSection>
                   </Link>
-                  <CardAction>
+                  <CardAction createdAt={val.createdAt}>
                     <button
                       onClick={(id) => deleteNote(val.id)}
                       className={
                         css`
                           font-size: 14px;
+                          margin: 0;
                         ` + " btn"
                       }
                     >

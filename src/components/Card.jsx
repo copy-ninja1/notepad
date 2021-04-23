@@ -47,8 +47,6 @@ export function CardSection(props) {
     <Section>
       <CardTitle>{title}</CardTitle>
       <CardBody>{message} </CardBody>
-
-      <CardDate>{createdAt}</CardDate>
     </Section>
   );
 }
@@ -69,9 +67,11 @@ export function CardAction(props) {
           border-top: 1px solid #223242;
           display: flex;
           flex-wrap: wrap;
-          justify-content: flex-end;
+          justify-content: space-between;
         `}
       >
+        <CardDate>{props.createdAt}</CardDate>
+
         {props.children}
       </div>
     </Action>
