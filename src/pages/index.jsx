@@ -56,13 +56,30 @@ export default function LandingPage() {
           })}
         </>
       ) : (
-        <p
+        <div
           className={css`
             color: #f3f5f7;
+            padding-top: 30px;
           `}
         >
-          No note, create one
-        </p>
+          <div
+            className={css`
+              font-size: 50px;
+            `}
+          >
+            <i className="mdi mdi-note"></i>
+          </div>
+          <div> sorry!</div>
+          You have not writen any note
+          <p
+            className={css`
+              color: #e5f2ffc4;
+              font-size: 14px;
+            `}
+          >
+            click the plus (+) icon to make a note
+          </p>
+        </div>
       )}
     </div>
   );
