@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/css";
 import "@mdi/font/css/materialdesignicons.min.css";
 import { Link } from "react-router-dom";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useHistory } from "react-router-dom";
 
 let AppHeader = styled.div({
   position: "fixed",
@@ -19,36 +19,81 @@ function _route(Component) {
   return function WrappedComponent(props) {
     const params = useParams();
     const path = useLocation();
-    return <Component {...props} id={params.id} path={path.pathname} />;
+    const history = useHistory();
+
+    return (
+      <Component
+        {...props}
+        id={params.id}
+        path={path.pathname}
+        history={history}
+      />
+    );
   };
 }
+function AppTitle(props) {
+  let { path, id } = props;
+  return (
+    <Link to="/">
+      {path !== "/note/new" && !id ? (
+        // plaus icon
+        <Fragment> NotePad</Fragment>
+      ) : id && path !== "/note/new" && path.includes("edit") ? (
+        // pen icon
+        <Fragment>Edit Note</Fragment>
+      ) : path === "/note/new" && !id ? (
+        <Fragment> New Note</Fragment>
+      ) : (
+        <Fragment> NotePad</Fragment>
+      )}
+    </Link>
+  );
+}
+function BackButton({ path, goBack }) {
+  return path !== "/" ? (
+    <button
+      onClick={goBack}
+      className={css`
+        float: left;
+        font-size: 20px;
+        border-radius: 8px;
+        border: none;
+        color: white;
+        background: #33495d;
+        box-shadow: 0px 2px 2px 4px #101b2799;
+        outline:none;
+    }`}
+    >
+      <i className="mdi mdi-chevron-left"></i>
+    </button>
+  ) : (
+    <Fragment></Fragment>
+  );
+}
+
 class Layout extends Component {
   render() {
-    let { path, id } = this.props;
+    let { path, id, history } = this.props;
     // console.log("path : ", path, path != "/note/new");
+    const goBack = () => {
+      if (path !== "/") {
+        history.goBack();
+      }
+    };
+
     return (
       <div>
         <AppHeader>
           <div
-            className={css`
-              padding: 10px;
-            `}
+            className={
+              css`
+                padding: 10px;
+              ` + " wrapper"
+            }
           >
-            <Link to="/">
-              {path !== "/note/new" && !id ? (
-                // plaus icon
-                <> NotePad</>
-              ) : id && path !== "/note/new" && path.includes("edit") ? (
-                // pen icon
-                <>Edit Note</>
-              ) : path === "/note/new" && !id ? (
-                <> New Note</>
-              ) : (
-                <> NotePad</>
-              )}
-            </Link>
+            <BackButton path={path} goBack={goBack}></BackButton>
+            <AppTitle path={path} id={id}></AppTitle>
 
-            {/*  */}
             {path !== "/note/new" && !id ? (
               // plaus icon
               <Link to="/note/new">
@@ -74,14 +119,16 @@ class Layout extends Component {
                 </span>
               </Link>
             ) : (
-              <></>
+              <Fragment></Fragment>
             )}
           </div>
         </AppHeader>
         <div
-          className={css`
-            padding-top: 60px;
-          `}
+          className={
+            css`
+              padding-top: 60px;
+            ` + " wrapper"
+          }
         >
           {this.props.children}
         </div>

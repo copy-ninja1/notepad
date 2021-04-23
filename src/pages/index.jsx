@@ -11,7 +11,7 @@ export default function LandingPage() {
   return (
     <div
       className={css`
-        padding: 0 12px;
+        padding: 0;
         height: 100%;
       `}
     >
