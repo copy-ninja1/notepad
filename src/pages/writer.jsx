@@ -201,7 +201,7 @@ export default function NewNote() {
           <Input
             value={title}
             type="text"
-            autocomplete="off"
+            autoComplete="off"
             placeholder="Title"
             name="title"
             onChange={handleTitleChange}
@@ -211,7 +211,7 @@ export default function NewNote() {
           <TextArea
             value={message}
             body
-            autocomplete="off"
+            autoComplete="off"
             type="text"
             name="title"
             onChange={handleMessageChange}
