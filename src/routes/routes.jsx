@@ -4,7 +4,7 @@ import DefualtLayout from "../layout/defualtLayout";
 
 import HomePage from "../pages/index";
 import NotePage from "../pages/[note]";
-import NewNotePage from "../pages/writer";
+import NewNotePage from "../pages/new_note";
 
 const Routes = () => {
   return (
