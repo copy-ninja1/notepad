@@ -53,16 +53,12 @@ function BackButton({ path, goBack }) {
   return path !== "/" ? (
     <button
       onClick={goBack}
-      className={css`
-        float: left;
-        font-size: 20px;
-        border-radius: 8px;
-        border: none;
-        color: white;
-        background: #33495d;
-        box-shadow: 0px 2px 2px 4px #101b2799;
-        outline:none;
-    }`}
+      className={
+        css`
+          float: left;
+          font-size: 20px;
+        ` + " btn btn-shadow"
+      }
     >
       <i className="mdi mdi-chevron-left"></i>
     </button>

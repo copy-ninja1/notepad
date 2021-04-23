@@ -1,13 +1,17 @@
 // import React from "react";
 import { css } from "@emotion/css";
-import Card from "../components/Card";
+import Card, { CardAction, CardSection } from "../components/Card";
 import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import noteSelector from "../store/note/selector";
+import { useRecoilState } from "recoil";
+import { __notes } from "../store/note/state";
 
 export default function LandingPage() {
-  const notes = useRecoilValue(noteSelector);
+  const [notes, setNewNote] = useRecoilState(__notes);
 
+  function deleteNote(id) {
+    let filteredNotes = notes.filter((val) => val.id !== id);
+    setNewNote(filteredNotes);
+  }
   return (
     <div
       className={css`
@@ -19,15 +23,35 @@ export default function LandingPage() {
         <>
           {notes.map((val, index) => {
             return (
-              <Link key={index} to={`/note/${val.id}`}>
-                <div
-                  className={css`
-                    margin-bottom: 10px;
-                  `}
-                >
-                  <Card note={val} />
-                </div>
-              </Link>
+              <div
+                key={index}
+                className={css`
+                  margin-bottom: 10px;
+                `}
+              >
+                <Card>
+                  <Link
+                    className={css`
+                      width: 100%;
+                    `}
+                    to={`/note/${val.id}`}
+                  >
+                    <CardSection note={val}></CardSection>
+                  </Link>
+                  <CardAction>
+                    <button
+                      onClick={(id) => deleteNote(val.id)}
+                      className={
+                        css`
+                          font-size: 14px;
+                        ` + " btn"
+                      }
+                    >
+                      <i className="mdi mdi-delete"></i>Delete
+                    </button>
+                  </CardAction>
+                </Card>
+              </div>
             );
           })}
         </>

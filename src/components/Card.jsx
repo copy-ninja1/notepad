@@ -1,13 +1,18 @@
 import styled from "@emotion/styled";
+import { css } from "@emotion/css";
+
 let CardBox = styled.div({
   //   border: "1px solid red",
   backgroundColor: "rgb(25, 39, 52)",
   minHeight: "20px",
-  padding: 10,
   borderRadius: 8,
   color: "#f3f5f7",
   cursor: "pointer",
   textAlign: "left",
+  display: "block",
+});
+let Section = styled.div({
+  padding: 10,
 });
 let CardTitle = styled.div({
   fontSize: "17px",
@@ -28,14 +33,47 @@ let CardDate = styled.div({
   fontSize: "13px",
   paddingTop: 10,
 });
-
+let Action = styled.div({
+  width: "100%",
+});
 export default function Card(props) {
+  return <CardBox className="">{props.children}</CardBox>;
+}
+
+export function CardSection(props) {
   let { title, message } = props.note;
+
   return (
-    <CardBox className="">
+    <Section>
       <CardTitle>{title}</CardTitle>
       <CardBody>{message} </CardBody>
+
       <CardDate>19th march, 2021</CardDate>
-    </CardBox>
+    </Section>
+  );
+}
+
+export function CardAction(props) {
+  return (
+    <Action>
+      <div
+        // className={css`
+        //   align-content: left;
+        // `}
+        className={css`
+          padding: 10px;
+          height: auto;
+          display: flex;
+          flex-wrap: wrap;
+          align-content: center;
+          border-top: 1px solid #223242;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+        `}
+      >
+        {props.children}
+      </div>
+    </Action>
   );
 }
