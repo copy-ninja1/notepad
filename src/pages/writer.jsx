@@ -45,7 +45,7 @@ const TextArea = styled.textarea({
 const Button = styled.button({
   padding: 10,
   color: "white",
-  backgroundColor: "rgb(25, 39, 52)",
+  background: "#33495d",
   outline: "none",
   border: "1px solid #4a454538",
   borderRadius: 8,
@@ -172,7 +172,9 @@ export default function NewNote() {
             onChange={handleMessageChange}
           />
         </TextBoard>
-        <Button onClick={!id ? saveNote : editNote}>Save</Button>
+        <Button className="btn" onClick={!id ? saveNote : editNote}>
+          Save
+        </Button>
       </div>
     </Fragment>
   );
