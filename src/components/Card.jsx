@@ -41,14 +41,14 @@ export default function Card(props) {
 }
 
 export function CardSection(props) {
-  let { title, message } = props.note;
+  let { title, message, createdAt } = props.note;
 
   return (
     <Section>
       <CardTitle>{title}</CardTitle>
       <CardBody>{message} </CardBody>
 
-      <CardDate>19th march, 2021</CardDate>
+      <CardDate>{createdAt}</CardDate>
     </Section>
   );
 }
